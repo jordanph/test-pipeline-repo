@@ -1,0 +1,29 @@
+steps:
+  - name: "Hello World"
+    image: alpine:latest@sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321
+    commands:
+      - echo 'Hello World'
+
+  - name: "Hello World with Delay"
+    image: alpine:latest@sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321
+    commands:
+      - sleep 20
+      - echo 'Hello World with delay'
+      - echo $CHECK_RUN_ID
+
+  - wait
+
+  - name: "Hello World after wait"
+    image: alpine:latest@sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321
+    commands:
+      - echo $SOME_ENV_VARIABLE
+    env:
+      - name: SOME_ENV_VARIABLE
+        value: Hello World after wait
+
+  - block: "Should we unblock to prod?"
+
+  - name: "Hello World after block"
+    image: alpine:latest@sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321
+    commands:
+      - echo 'Pushing Hello World to Prod'
